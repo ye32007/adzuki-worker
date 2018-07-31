@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+        layout:decorator="templates/list_modal_layout">
+<head>
+	<title>任务管理</title>
+</head>
+<body>
+<!-- query form -->
+<div layout:fragment="query_form">
+			<div class="col-md-5">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">任务类型：</label>
+				<div class="col-sm-8">
+					<select name="taskType" class="form-control">
+						<option value="">-请选择-</option>
+						<option th:each="item: ${typeList}" th:value="${item.taskType}" th:text="${item.taskType}"></option>
+					</select>
+				</div>
+			</div>
+			</div>
+			<div class="col-md-5">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">任务状态：</label>
+				<div class="col-sm-8">
+					<select name="taskStatus" class="form-control">
+						<option value="">-请选择-</option>
+						<option value="0">待执行</option>
+						<option value="1">执行中</option>
+						<option value="2">已完成</option>
+					</select>
+				</div>
+			</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">UUID：</label>
+					<div class="col-sm-8">
+						<input name="uuid" class="form-control" placeholder="UUID"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">BIZID：</label>
+					<div class="col-sm-8">
+						<input name="bizId" class="form-control" placeholder="BIZID"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">开始时间：</label>
+				<div class="col-sm-8"> 
+					<input name="startTime" id="startTime" class="form-control" autocomplete="off" placeholder="任务执行时间"/>
+				</div>
+		    </div>
+		    </div>
+		    <div class="col-md-5">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">结束时间：</label>
+				<div class="col-sm-8">
+					<input name="endTime" id="endTime" class="form-control" autocomplete="off" placeholder="任务执行时间"/>
+				</div>
+		    </div>
+		    </div>
+</div>
+
+<!-- detail form -->
+<div layout:fragment="detail_form">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">任务类型<span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<select name="taskType" class="form-control">
+							<option th:each="item: ${typeList}" th:value="${item.taskType}" th:text="${item.taskType}"></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">任务状态<span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<select name="taskStatus" class="form-control">
+							<option value="0">待执行</option>
+							<option value="1">执行中</option>
+							<option value="2">已完成</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">任务UUID<span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<input type="text" name="uuid" class="form-control" placeholder="UUID防重"/>					
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">执行时间<span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<input name="bizTime" id="bizTime" class="form-control" autocomplete="off"/>	
+					</div>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div class="form-group">
+					<label for="" class="col-sm-2 control-label">任务数据<span style="color:red">*</span></label>
+					<div class="col-sm-10">
+						<textarea class="form-control" name="taskData" rows="3" cols="20" placeholder="执行任务的数据"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+<script type="text/javascript" layout:fragment="foot_script">
+/*<![CDATA[*/
+	var pageSetting = {
+		modelName : '任务管理',
+		resetPath : '.',
+		buttons : [
+			{'text':'添加', 'class':'btn-default', 'click':'showAddDialog'},
+			{'text':'编辑', 'class':'btn-default', 'click':'showEditDialog'},
+			{'text':'重发', 'class':'btn-default', 'click':'resetTask'},
+			{'text':'删除', 'class':'btn-default', 'click':'del'},
+			{'text':'刷新', 'class':'btn-default', 'click':'refresh'}
+		]
+	};
+
+	$(function(){
+		//e7table表格控件初始化
+		e7tableInit();
+		//表单校验控件初始化
+		validatorInit();
+		$('#startTime').datetimepicker({
+			format: 'yyyy-mm-dd hh:ii:ss',
+			language : 'zh-CN',
+			autoclose: true
+		});
+		$('#endTime').datetimepicker({
+			format: 'yyyy-mm-dd hh:ii:ss',
+			language : 'zh-CN',
+			autoclose: true
+		});
+		$('#bizTime').datetimepicker({
+			format: 'yyyy-mm-dd hh:ii:ss',
+			language : 'zh-CN',
+			autoclose: true
+		});
+	});
+	/***
+	 * e7table表格控件初始化
+	 */
+	function e7tableInit() {
+		$('#tbl_query').e7table({
+			url : 'queryPage',
+			pageSize: 10,
+			autoLoading: true,			//控件初始化后，自动远程请求数据
+			selectType: 'single',
+			columns : [
+				{title: 'UUID', field: 'uuid', sortable: false},
+				{title: '任务类型', field: 'taskType', sortable: false},
+				{title: '任务状态', field: 'taskStatus', formatter: function(value, row, index) {
+					if(value == 0) return '待执行';
+					if(value == 1) return '<code>执行中</code>';
+					if(value == 2) return '<code class="text-success bg-success">已完成</code>';
+				}},
+				{title: '运行次数', field: 'retryCount', sortable: false},
+				{title: '执行时间', field: 'bizTime', formatter: function(value, row, index) {
+					return new Date(value).format();
+				}},
+				{title: '创建日期', field: 'createTime', formatter: function(value, row, index) {
+					return new Date(value).format();
+				}}
+			],
+			onDblclick : function(index, row) {
+				showViewDialog();
+			}
+		});
+	}
+
+	/***
+	 * 表单校验控件初始化
+	 */
+	function validatorInit() {
+		$('#frm_detail').bootstrapValidator({
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {	  	 
+				uuid : {
+					validators : {
+						notEmpty : {message : 'uuid不能为空!'},
+						stringLength : { max : 100, message : '类型代码长度不能超过100字符!' }
+					}
+				},
+				bizTime : {
+					validators : {
+						notEmpty : {message : '执行时间不能为空!'},
+					}
+				},
+				taskData : {
+					validators : {
+						notEmpty : {message : '任务数据不能为空!'},
+						stringLength : {max : 4000, message : '任务数据不能超过4000个字符!' }
+					}
+				}
+			}
+		});
+		$('#btn_save').click(function() {
+			$('#frm_detail').bootstrapValidator('validate');
+		});
+	}
+	
+	function resetTask(){
+		var rows = $('#tbl_query').e7table('getSelectedRows');
+		if(rows.length == 0) {
+			bootbox.alert({'title':'错误消息', 'message':'请选择数据！'});
+			return;
+		} else if(rows.length > 1) {
+			bootbox.alert({'title':'错误消息', 'message':'一次只能编辑一条数据！'});
+			return;
+		}
+		bootbox.confirm({
+			buttons : {
+				confirm : {label : '确定', className : 'btn-info'},
+				cancel : {label : '取消', className : 'btn-cancel'}
+			},
+			className : "reset-model",
+			message : '确定要重置？',
+			callback : function(result) {
+				if (!result) return;
+				
+				E7.post(pageSetting.resetPath + '/reset', {'id' : rows[0]['id']}, function(data) {
+					bootbox.alert({'title' : "消息",'message' : '重置成功！'});
+	               	$('#tbl_query').e7table('reload');
+				});
+			},
+			title : "删除确认"
+		});
+	}
+	/*]]>*/
+</script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <title>天安车联网</title>
+    <link rel="stylesheet" th:href="@{/resources/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/dist/css/skins/_all-skins.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/dist/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/e7/e7table/e7table-0.2.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/plugins/jquerydatetimepicker/css/jquery-ui.min.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/plugins/jquerydatetimepicker/css/jquery-ui-timepicker-addon.min.css}"/>
+</head>
+
+<body>
+<!-- Main content -->
+<section id="sec_main" class="content">
+    <!-- 条件查询 -->
+    <div class="box box-info">
+        <!-- 			<div class="box-header with-border">
+                        <h3 class="box-title">
+                            条件查询
+                        </h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div> -->
+        <div class="box-body" style="padding-bottom:0px;">
+            <form id="frm_query" class="form-horizontal">
+                <div id="div_criteria" class="flowlayout" layout:fragment="query_form"></div>
+            </form>
+        </div>
+        <div id="div_buttons" class="box-footer">
+            <button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>
+            <button class="btn btn-primary pull-right" onclick="javascript:query()" style="margin-right:15px;">查询
+            </button>
+            <button id="btn-import-excel" type="button" style="margin-bottom: 5px;" class="btn btn-default">导入
+            </button>
+        </div>
+    </div>
+
+    <!-- 信息列表 -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info">
+                <!-- 		<div class="box-header">
+                            <h3 class="box-title">信息预览</h3>
+                            <div class="box-tools">
+                                <button class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div> -->
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table id="tbl_query" class="table table-hover"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- /.content -->
+
+
+<!-- 详细信息 -->
+<section id="sec_detail" class="content detail" style="display:none;">
+    <div class="box box-info">
+        <!-- 			<div class="box-header with-border">
+                        <h3 id="h3_detailTitle" class="box-title"></h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div> -->
+        <div class="box-body">
+            <form id="frm_detail" class="form-horizontal">
+                <fieldset id='fld_detail'>
+                    <input name="id" type="hidden" value=""/>
+                    <div layout:fragment="detail_form"></div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="box-footer" layout:fragment="box_footer">
+            <button id="btn_save" type="button" class="btn btn-primary pull-right" onclick="javascript:save();">保存
+            </button>
+            <button id="btn_close" type="button" class="btn btn-default pull-right" onclick="javascript:hideDetail();"
+                    style="margin-right:15px;">返回
+            </button>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+
+<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+<script th:src="@{/resources/plugins/bootbox/bootbox.min.js}"></script>
+<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+<script th:src="@{/resources/dist/js/app.min.js}"></script>
+<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
+<script th:src="@{/resources/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<script th:src="@{/resources/plugins/jquerydatetimepicker/js/jquery-ui-timepicker-addon.min.js}"></script>
+<script th:src="@{/resources/plugins/jquerydatetimepicker/js/i18n/jquery-ui-timepicker-zh-CN.js}"></script>
+<script th:src="@{/resources/plugins/jQuery/jquery.ocupload-1.1.2.js}"></script>
+
+<footer layout:fragment="footer"></footer>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function () {
+        if (!pageSetting || !pageSetting.buttons || pageSetting.buttons.length == 0) return;
+
+        for (var i = 0; i < pageSetting.buttons.length; i++) {
+            var button = pageSetting.buttons[i];
+            $('#div_buttons').append(' <button class="btn ' + (button['class'] ? button['class'] : '') + '" onclick="javascript:' + button['click'] + '();">' + button['text'] + '</button> ');
+        }
+        // $('#div_buttons').append('<button id="btn-import-excel" type="button" class="btn btn-default">导入</button>');
+    });
+
+
+    /***
+     * 显示详情div
+     */
+    function showDetail(title, editable) {
+        if (editable) {
+            $('#fld_detail').prop('disabled', false);
+            $('#btn_save').show();
+            var editRegisterTime = $('#register-time-input').val();
+
+            if (editRegisterTime != '' && editRegisterTime != 'undefined' && editRegisterTime != null) {
+                $('#register-time-input').val(new Date(editRegisterTime * 1).format());
+            }
+
+        } else {
+            $('#fld_detail').prop('disabled', true);
+            $('#btn_save').hide();
+        }
+
+        $('#h3_detailTitle').text(title);
+        $('#sec_detail').fadeIn(300);
+        $('#sec_main').hide();
+    }
+
+    /***
+     * 隐藏详情div
+     */
+    function hideDetail() {
+        $('#sec_detail').fadeOut(300);
+        setTimeout(function () {
+            $('#sec_main').show();
+        }, 300)
+    }
+
+    //自适应
+    var templateListDivResizeTimer = null;
+    $(window).resize(function () {
+        clearTimeout(templateListDivResizeTimer);
+        templateListDivResizeTimer = setTimeout(layoutResize, 100);
+    });
+
+    function layoutResize() {
+        var criteria = $('#div_criteria.flowlayout > div');
+        criteria.removeClass();
+        if (document.body.clientWidth >= 1200) {
+            criteria.addClass('col-md-4');
+        } else {
+            criteria.addClass('col-md-6');
+        }
+    }
+
+    layoutResize();
+
+    // 导入Excel
+    $('#btn-import-excel').upload({
+        name: 'upload-excel',
+        action: '/terminal/uploadExcel',
+        onSelect: function () {
+            this.autoSubmit = false;
+            var filename = $('input[name="upload-excel"]').val();
+            var regex = /^.*\.(xls|xlsx)$/i;
+            if (regex.test(filename)) {
+                this.submit();
+            } else {
+                alert("警告,只能上传.xls .xlsx结尾的文件");
+            }
+        },
+        onComplete: function (response) {
+            if (response == "\"0\"") {
+                alert("导入成功！");
+            } else {
+                alert("导入失败！");
+            }
+        }
+    });
+
+    /*]]>*/
+</script>
+
+<script type="text/javascript" layout:fragment="foot_script"></script>
+</body>
+</html>

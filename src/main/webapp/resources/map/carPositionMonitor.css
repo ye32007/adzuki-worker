@@ -1,0 +1,138 @@
+.btn-primary, .btn-primary:focus, .btn-primary:hover {
+		background: #0095ff;
+	}
+	thead tr{
+		background:#F7FBFE;
+	}
+	
+	.amap-info-close{
+		display: none;
+	}
+	
+	.carInfoContent {
+	    color: #6e726e;
+	    padding: 0 0 3px 0;
+	    font-size: 12px;
+	    margin-bottom:0px;
+		width:250px;
+	}
+	.carInfoContent > div > span{
+		float:left;
+	}
+	.carInfoContent > div > div{
+		float:left;
+		width:160px;
+	}
+	.carInfoLink {
+	    padding: 0 0 3px 0;
+	    font-size: 12px;
+	    margin-bottom:0px;
+	}
+	.carInfoLink{
+		width:33%;
+		text-align:center;
+		float:left;
+	}
+	
+	.ctrlPop{
+		position:absolute;
+		left:20px;
+		bottom:20px;
+		width:250px;
+		background: rgba(255,255,255,.85);
+	    box-sizing: border-box;
+	    box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+		z-index: 999;
+		font-size: 12px;
+	}
+	
+	.ctrlTitle{
+		height: 30px;
+	    padding: 0 15px;
+	    line-height: 30px;
+		width:100%;
+		font-weight:bold;
+		font-size:14px;
+		background: #eee;
+	}
+	
+	.ctrlCarNo{
+		height: 30px;
+	    padding: 0 20px;
+	    margin-top:10px;
+	    color: #3493DA;
+		font-weight:bold;
+		font-size:16px;
+		width:100%;
+		font-weight:bold;
+	}
+	
+	.ctrlBtn{
+	    padding: 0px 0 00px 20px;
+	}
+	.ctrlBtn > span {
+		display: inline-block;
+		width: 25px;
+		height:25px;
+		background-color: #0095ff;
+		border-radius: 5px;
+		color: white;
+		line-height: 25px;
+		text-align: center;
+		margin-right: 15px;
+		cursor: pointer;
+	}
+	
+	.ctrlDetail{
+	    padding: 0 0 15px 20px;
+	}
+	
+	.ctrlDetail > div > span{
+		float:left;
+	}
+	.ctrlDetail > div > div{
+		float:left;
+		width:160px;
+	}
+	
+	.ctrlColors {
+	    padding: 10px 0 20px 20px;
+	}
+	
+	.ctrlColorTitle{
+	    padding: 0 20px;
+	}
+	
+	.ctrlColors > span {
+		display: inline-block;
+		width: 40px;
+		height:20px;
+		color: white;
+		line-height: 20px;
+		text-align: center;
+		margin-right: 10px;
+		cursor: pointer;
+		background-color: green;
+	}
+	
+	.ctrlColorActive:before {
+		content: "V";
+	}
+	
+	.trackInfoWindow{
+	    padding: 1em 0 1em 1em;
+	    font-size: 12px;
+	    width:280px;
+	}
+	.trackInfoWindow > div > span{
+		float:left;
+		width:70px;
+		text-align:right;
+		display:inline-block;
+		margin:2px 0;
+	}
+	.trackInfoWindow > div > div{
+		float:left;
+		width:180px;
+		margin:2px 0;
+	}

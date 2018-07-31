@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+        layout:decorator="templates/list_modal_layout">
+<head>
+	<title>任务类型管理</title>
+</head>
+<body>
+<!-- query form -->
+<div layout:fragment="query_form">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">SERVICEID：</label>
+				<div class="col-sm-8">
+					<input name="taskService" class="form-control" placeholder="任务类型描述"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">任务状态：</label>
+				<div class="col-sm-8">
+					<select name="status" class="form-control">
+						<option value="">-请选择-</option>
+						<option value="0">停用</option>
+						<option value="1">启用</option>
+					</select>
+				</div>
+			</div>
+		</div>
+</div>
+
+<!-- detail form -->
+<div layout:fragment="detail_form">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">任务类型<span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<input name="taskType" class="form-control"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">SERVICEID<span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<input name="taskService" class="form-control"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">任务类型描述</label>
+					<div class="col-sm-8">
+						<input name="taskTypeDesc" class="form-control"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">父类型</label>
+					<div class="col-sm-8">
+						<select name="taskParentType" class="form-control">
+							<option value="">-请选择-</option>
+							<option th:each="item: ${typeList}" th:value="${item.id}" th:text="${item.taskType}"></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">状态<span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<select name="status" class="form-control">
+							<option value="0">停用</option>
+							<option value="1">启用</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+<script type="text/javascript" layout:fragment="foot_script">
+/*<![CDATA[*/
+	var pageSetting = {
+		modelName : '任务类型管理',
+		resetPath : '.',
+		buttons : [
+			{'text':'添加', 'class':'btn-default', 'click':'showAddDialog'},
+			{'text':'编辑', 'class':'btn-default', 'click':'showEditDialog'},
+			{'text':'删除', 'class':'btn-default', 'click':'del'},
+			{'text':'刷新', 'class':'btn-default', 'click':'refresh'}
+		]
+	};
+
+	$(function(){
+		//e7table表格控件初始化
+		e7tableInit();
+		//表单校验控件初始化
+		validatorInit();
+	});
+	/***
+	 * e7table表格控件初始化
+	 */
+	function e7tableInit() {
+		$('#tbl_query').e7table({
+			url : 'queryPage',
+			pageSize: 10,
+			autoLoading: true,			//控件初始化后，自动远程请求数据
+			selectType: 'single',
+			columns : [
+				{title: '任务类型', field: 'taskType', sortable: false},
+				{title: '任务执行bean', field: 'taskService', sortable: false},
+				{title: '描述', field: 'taskTypeDesc', sortable: false},
+				{title: '父任务类型', field: 'taskParentType', sortable: false},
+				{title: '状态', field: 'status', formatter: function(value, row, index) {
+					if(value == 0) return '<code>停用</code>';
+					if(value == 1) return '<code class="text-success bg-success">启用</code>';
+				}},
+				{title: '创建日期', field: 'createTime', formatter: function(value, row, index) {
+					return new Date(value).format();
+				}}
+			],
+			onDblclick : function(index, row) {
+				showViewDialog();
+			}
+		});
+	}
+
+	/***
+	 * 表单校验控件初始化
+	 */
+	function validatorInit() {
+		$('#frm_detail').bootstrapValidator({
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {	  	 
+				taskType : {
+					validators : {
+						notEmpty : {message : '任务类型代码不能为空!'},
+					}
+				},
+				taskService : {
+					validators : {
+						notEmpty : {message : 'SERVICEID不能为空!'},
+						stringLength : {max : 100, message : 'SERVICEID不能超过100个字符!' }
+					}
+				}
+			}
+		});
+		$('#btn_save').click(function() {
+			$('#frm_detail').bootstrapValidator('validate');
+		});
+	}
+	/*]]>*/
+</script>
+</body>
+</html>

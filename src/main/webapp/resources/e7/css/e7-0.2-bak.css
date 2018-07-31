@@ -1,0 +1,73 @@
+@charset "utf-8"; 
+
+@media (max-width: 767px) {
+	.e7-mobile-single-header .content-wrapper, .e7-mobile-single-header .right-side {
+	    padding-top: 50px !important;
+	}
+}
+
+html,body{height:100%}
+
+body{ 
+	font-family: "微软雅黑";
+	background-color: #ECF0F5;
+}
+h1,h2,h3,h4{font-family: "微软雅黑"}
+
+
+.skin-black-light >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li ,
+.skin-blue-light >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li ,
+.skin-green-light >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li ,
+.skin-purple-light >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li ,
+.skin-red-light >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li ,
+.skin-yellow-light>.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li 
+{border-top: solid 1px #e3e3e3;}
+
+.skin-black-light >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li ,
+.skin-blue-light >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li ,
+.skin-green-light >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li ,
+.skin-purple-light >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li ,
+.skin-red-light >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li ,
+.skin-yellow-light>.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li 
+{border-top: solid 1px #e3e3e3;padding: 5px 0px 5px 0px;}
+
+.skin-black >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li ,
+.skin-blue >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li ,
+.skin-green >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li ,
+.skin-purple >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li ,
+.skin-red >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li ,
+.skin-yellow>.wrapper>.main-sidebar>.sidebar>.sidebar-menu>li 
+{border-top: solid 1px #606060;}
+
+.skin-black >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li ,
+.skin-blue >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li ,
+.skin-green >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li ,
+.skin-purple >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li ,
+.skin-red >.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li ,
+.skin-yellow>.wrapper>.main-sidebar>.sidebar>.sidebar-menu>.treeview>.treeview-menu>li 
+{border-top: solid 1px #606060;padding: 5px 0px 5px 0px;}
+
+.main-header .tabs:before {
+    content: "\f24d" !important;
+}
+
+.e7-loading{
+	background:url(../img/loading.gif) no-repeat center center;
+	position:absolute;
+	top:40%;
+	left:50%; 
+	margin: -16px 0 0 -16px;
+	width: 32px;
+	height: 32px;
+}
+
+#e7_mask{
+	background: rgba(0,0,0,0);
+}
+
+.modal-body {
+	max-height: -moz-calc(100vh - 200px);
+  	max-height: -webkit-calc(100vh - 200px);
+	max-height: calc(100vh - 200px);
+	overflow: auto;
+}

@@ -1,0 +1,12 @@
+@media screen and (max-width: 767px) {
+	.fullscreen-content{
+		display:none !important;
+	}
+	.logo{
+		display:none !important;
+	}
+}
+
+.main-header .tabs:before {
+    content: "\f24d" !important;
+}

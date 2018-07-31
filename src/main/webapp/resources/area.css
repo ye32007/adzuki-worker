@@ -1,0 +1,190 @@
+html,body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0;
+	font-size: 13px;
+}
+
+ul,li {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+#outer-box {
+	height: 100%;
+	padding-right: 300px;
+}
+
+#container {
+	height: 100%;
+	width: 100%;
+}
+
+#panel {
+	/* position: absolute; */
+	/* top: 0; */
+	bottom: 0;
+	right: 0;
+	height: 100%;
+	overflow: auto;
+	width: 300px;
+	z-index: 999;
+	padding-bottom: 40px;
+	/* border-left: 1px solid #eaeaea; */
+	/* background: #fff; */
+}
+
+.scrollbar1::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: #fff;
+}
+
+.scrollbar1::-webkit-scrollbar {
+	width: 6px;
+	background-color: #fff;
+}
+
+.scrollbar1::-webkit-scrollbar-thumb {
+	background-color: #aaa;
+}
+
+.clear {
+	clear: both;
+}
+
+.tipMarker {
+	color: #555;
+	background-color: rgba(255, 254, 239, 0.8);
+	border: 1px solid #7E7E7E;
+	padding: 2px 6px;
+	font-size: 12px;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+.tipMarker:before,.tipMarker:after {
+	content: '';
+	display: block;
+	position: absolute;
+	margin: auto;
+	width: 0;
+	height: 0;
+	border: solid transparent;
+	border-width: 5px 5px;
+}
+
+.tipMarker.top {
+	transform: translate(-50%, -110%);
+}
+
+.tipMarker.top:before,.tipMarker.top:after {
+	bottom: -9px;
+	left: 0;
+	right: 0;
+	border-top-color: rgba(255, 254, 239, 0.8);
+}
+
+.tipMarker.top:before {
+	bottom: -10px;
+	border-top-color: #7E7E7E;
+}
+
+#area-tree h2 {
+	display: inline-block;
+	font-weight: 500;
+	font-size: 13px;
+	padding: 3px 5px;
+	margin: 0;
+	border: 1px solid #2ca02c;
+	border-width: 1px 3px;
+	cursor: pointer;
+}
+
+#area-tree h2:hover,#area-tree h2.hover,#area-tree h2.selected {
+	background: #3366cc;
+	color: #fff;
+}
+
+#area-tree h2.lv_outside {
+	border-color: #666;
+	padding: 3px 10px;
+}
+
+#area-tree h2.lv_country {
+	border-color: #d62728;
+	padding: 3px 27px;
+	margin: 5px 0;
+}
+
+#area-tree h2.lv_province {
+	border-color: #ff7f0e;
+	padding: 3px 10px;
+}
+
+#area-tree h2.lv_district {
+	border-color: #dd4477
+}
+
+#area-tree ul {
+	margin-left: 23px;
+	clear: both;
+}
+
+#area-tree li {
+	/* float: left; */
+	margin: 5px 5px 0 0;
+	font-size: 12px;
+}
+
+#area-tree li.lv_province {
+	margin: 5px 5px 5px 0;
+}
+
+.showHideBtn {
+	display: inline-block;
+	position: relative;
+	width: 20px;
+	height: 20px;
+	overflow: hidden;
+	vertical-align: middle;
+	margin: 0;
+	cursor: pointer;
+}
+
+@-webkit-keyframes rotate-forever {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+.loading>.showHideBtn {
+	-webkit-animation: 1s ease-in-out infinite rotate-forever;
+}
+
+.showHideBtn:after {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	top: 4px;
+	left: 4px;
+	border: solid rgba(0, 0, 0, 0);
+	border-width: 10px 6px;
+	border-top-color: #aaa;
+	transition-property: all;
+	transition-duration: .2s;
+}
+
+.hide-sub .showHideBtn:after {
+	transform-origin: 50% 20%;
+	transform: rotate(-90deg);
+}
+
+.hide-sub>ul {
+	display: none;
+}

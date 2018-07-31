@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>任务管理平台</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" media="screen" />
+	<link rel="stylesheet" th:href="@{/resources/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/dist/css/skins/_all-skins.css}" />
+	<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.ext.css}"/>
+ 	<link rel="stylesheet" th:href="@{/resources/dist/css/font-awesome.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}"/> 
+	
+	<style type="text/css">
+		.sidebar-menu .icon:before{
+			font-family: "iconfont" !important;
+			content: "\e778";
+		}
+		
+		.sidebar-menu .active>a>.icon:before{
+			font-family: "iconfont" !important;
+			content: "\e600";
+		}
+		
+		.sidebar-menu .fa {
+			color:#0095ff;
+		}
+		.skin-blue-light .sidebar-menu > li > a{
+			font-weight: normal;
+		}
+	</style>
+</head>
+
+<body class="hold-transition skin-blue-light sidebar-mini fixed" style="overflow-y:hidden;">
+	<div class="wrapper">
+		<header class="main-header">
+			<a href="javascript:void(0)" class="logo" style="background:#0095ff;"> 
+				<span class="logo-mini">
+					<span href="#" data-toggle="offcanvas" role="button" style="margin-top:-14px"><i class="fa fa-tags"></i></span>
+				</span>
+				<span class="logo-lg" style="color: #fff; margin-left:10px;font-size: 20px; font-weight: 600; line-height: 50px; font-family: 'Helvetica,Arial,';">
+					任务管理平台
+				</span>
+			</a>
+			<nav class="navbar navbar-static-top" role="navigation"  style="background:#0095ff;">
+				<a id="min_offcanvas" href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a>
+				<div class="navbar-custom-menu">
+					<ul class="nav navbar-nav">
+						<li class="dropdown user user-menu">
+							<a href="#" class="dropdown-toggle" id="dLabel" type="button" data-toggle="dropdown" >
+								当前用户：<span class="hidden-xs" th:text="管理员"></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		
+		<aside class="main-sidebar" style="overflow-y: auto; min-height:0px; ">
+			<section class="sidebar">
+				<ul class="sidebar-menu">
+					
+				</ul>
+			</section>
+		</aside>
+
+		<div class="content-wrapper" style="min-height: 0px;">
+			<ul id="tabPanel" class="nav nav-tabs"> </ul>
+		</div>
+	</div>
+</body>
+</html>
+
+<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+<script th:src="@{/resources/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/resources/plugins/bootbox/bootbox.min.js}"></script>
+<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/resources/dist/js/app.min.js}"></script>
+<script th:src="@{/resources/dist/js/App.Extend.js?v=1}"></script>
+<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+<script th:src="@{/resources/e7/e7tabs/e7tabs-0.3.js}"></script>
+<script th:inline="javascript">
+	/*<![CDATA[*/  
+ 	$(function(){
+		$('#tabPanel').e7tabs({
+			tabs:[
+			     {id:'1',title:'task管理', url:[[@{/task/list}]], closable:true} 
+			]
+		});
+		var menus = [{"id":1,"pid":0,"name":"task管理","level":1,"url":"/task/list",'icon':'fa-tasks',"folder":false,"level":2,"childrens":null},
+		             {"id":2,"pid":0,"name":"service管理","level":1,"url":"/service/list",'icon':'fa-cubes',"folder":false,"level":2,"childrens":null},
+		             {"id":3,"pid":0,"name":"timer管理","level":1,"url":"/timer/list",'icon':'fa-calendar',"folder":false,"level":2,"childrens":null}
+					];
+		Menu.init(menus, [[@{/}]]);	
+	});
+	
+	function openTab(tab) {
+		$('#tabPanel').e7tabs('add', tab);
+	}
+ 	/*]]>*/  
+</script>

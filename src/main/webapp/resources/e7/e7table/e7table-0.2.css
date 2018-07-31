@@ -1,0 +1,122 @@
+@charset "utf-8"; 
+
+.e7table_page {
+	margin-top: 0px;
+	text-align:center;
+}
+
+.e7table_page_total {
+	float:left;
+	font-size:14px;
+	line-height: 32px;
+}
+
+.e7table_page_total_min {
+	float:none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.e7table_page_button {
+	float:right;
+	margin:0px;
+}
+
+.e7table_page_button_min {
+	float:none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@media screen and (max-width: 767px) {
+	.e7table_page_total {
+		text-align: center;
+	}
+	.e7table_page_button {
+		text-align: center;
+	}
+}
+
+.e7table_loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	margin-left: -50%;
+	margin-top: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+	background: url(image/loading.gif) no-repeat no-repeat center center;;
+	opacity: 0.7;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+	z-index: 9999;
+}
+
+.e7table_selected {
+	background-color: #0195FF !important;
+}
+
+.e7table_sortable {
+	cursor: pointer;
+	background: url(image/sortable.png) no-repeat center right;
+}
+
+.e7table_sortable_asc {
+	cursor: pointer;
+	background: url(image/sortable_asc.png) no-repeat center right;
+}
+
+.e7table_sortable_desc {
+	cursor: pointer;
+	background: url(image/sortable_desc.png) no-repeat center right;
+}
+
+.e7table_wordWrap {
+	word-break: break-all; 
+	word-wrap: break-word;
+}
+
+.e7table_ellipsis {
+	table-layout:fixed;
+}
+
+.e7table_td_ellipsis {
+	overflow:hidden; 
+	text-overflow:ellipsis; 
+	white-space:nowrap; 
+	word-break:keep-all; 
+}
+
+.e7table td {
+	vertical-align: middle !important;
+}
+.e7table th {
+	vertical-align: middle !important;
+}
+
+/*----------自定义---------------------------*/
+.e7table tbody tr{
+	background:#FFF;
+}
+
+.e7table_page {
+	background:#FFF;
+}
+
+.e7table_selected a{
+	color:#fff;
+}
+
+.pagination>.active>a, 
+.pagination>.active>a:focus, 
+.pagination>.active>a:hover, 
+.pagination>.active>span, 
+.pagination>.active>span:focus, 
+.pagination>.active>span:hover {
+	background-color: #0095ff;
+    border-color: #0095ff;
+}
